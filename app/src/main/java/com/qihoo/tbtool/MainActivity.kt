@@ -28,6 +28,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        wuai.setOnceClick {
+            openWebView("https://www.52pojie.cn")
+        }
+
     }
 
 
