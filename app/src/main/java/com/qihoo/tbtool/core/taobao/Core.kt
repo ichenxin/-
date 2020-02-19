@@ -28,8 +28,11 @@ object Core {
      */
     fun startGo(context: Context, intent: Intent) {
         val intent = intent.clone() as Intent
+        // IS_KILL 就代表是抢购的标记
         intent.putExtra(TbDetailActivityHook.IS_KILL, true)
+        // IS_KILL_GO 判断秒杀逻辑直走一次
         intent.putExtra(TbDetailActivityHook.IS_KILL_GO, false)
+        // IS_INJECT 这个无需注入控制 View
         intent.putExtra(TbDetailActivityHook.IS_INJECT, false)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         context.startActivity(intent)
