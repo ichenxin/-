@@ -1,3 +1,6 @@
+## 提醒
+如果大家有需要抢购的物品，可以提 issues 备注上抢购物品的入口方式，我可以兼容增加秒杀逻辑。
+
 ## 故事背景
 I am a programmer, I have a dream!  
 
