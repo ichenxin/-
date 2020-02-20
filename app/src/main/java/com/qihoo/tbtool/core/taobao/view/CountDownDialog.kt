@@ -25,10 +25,10 @@ import kotlin.collections.HashMap
 
 
 /**
- * 商品属性选择Dialog
+ * 倒计时Dialog
  */
-class ChoosePropertyDialog(
-    context: Context, val props: List<Prop>, val confirm: (HashMap<String, String>) -> Unit
+class CountDownDialog(
+    context: Context, val timeValue: Long, val stop: () -> Unit, val start: () -> Unit
 ) : Dialog(context),
     CoroutineScope by createMyScope() {
 
@@ -40,49 +40,37 @@ class ChoosePropertyDialog(
 
         window!!.getDecorView().setPadding(0, 0, 0, 0)
         val lp = window!!.attributes
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT
+        lp.width = context.dip(300)
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT
-        lp.gravity = Gravity.BOTTOM
+        lp.gravity = Gravity.CENTER
         window!!.attributes = lp
 
     }
 
     private fun buildView(): View {
-        return ChoosePropertyView(context, props, {
+        return CountDownView(context, timeValue, {
             // 确认
-            confirm()
-        }, {
             // 取消
             dismiss()
+        }, {
+            confirm()
         }).getRootView()
 
     }
 
 
     private fun confirm() {
-        // 转换选中数据
-        val selects = HashMap<String, String>()
+        start()
 
-
-        for (prop in props) {
-            for (value in prop.values) {
-                if (value.isSelected) {
-                    selects[prop.name] = value.name
-                    break
-                }
-            }
-        }
-
-        confirm(selects)
         dismiss()
     }
 
 
     override fun dismiss() {
+        stop()
         super.dismiss()
         coroutineContext.cancel()
     }
-
 
 }
 

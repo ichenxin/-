@@ -1,6 +1,5 @@
 package com.qihoo.tbtool.core.taobao.view
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.view.Gravity
@@ -21,11 +20,11 @@ import android.graphics.drawable.StateListDrawable
  * 构造器
  */
 class ChoosePropertyView(
-    val context: Context,
+    context: Context,
     val props: List<Prop>,
     val confirm: () -> Unit,
     val cancel: () -> Unit
-) {
+) : BaseView(context) {
     fun getRootView(): View {
         return context.UI {
             verticalLayout {
@@ -146,26 +145,6 @@ class ChoosePropertyView(
 
     }
 
-    fun buildBG(): StateListDrawable {
-        val drawable = StateListDrawable()
-        // state_selected 为false
-
-        drawable.addState(intArrayOf(-R.attr.state_selected), buildRoundRectShape(Color.GRAY))
-        drawable.addState(
-            intArrayOf(R.attr.state_selected),
-            buildRoundRectShape(Color.parseColor("#FF6721"))
-        )
-
-        return drawable
-    }
-
-    private fun buildRoundRectShape(color: Int): GradientDrawable {
-        val drawable = GradientDrawable()
-        drawable.shape = GradientDrawable.RECTANGLE
-        drawable.cornerRadius = context.dip(60).toFloat()
-        drawable.setColor(color)
-        return drawable
-    }
 
     private fun buildText(value: Value): TextView {
         val layoutParams = LinearLayout.LayoutParams(
@@ -182,7 +161,7 @@ class ChoosePropertyView(
         tv.textColor = Color.WHITE
 
         tv.layoutParams = layoutParams
-        tv.background = buildBG()
+        tv.background = buildSelectedBG(Color.parseColor("#FF6721"), Color.GRAY)
         tv.isSelected = value.isSelected
         tv.setSingleLine()
 

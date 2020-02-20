@@ -23,6 +23,12 @@ import kotlinx.coroutines.launch
 import org.jetbrains.anko.toast
 import java.util.*
 import kotlin.math.log
+import androidx.core.app.ComponentActivity
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,6 +89,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
 
         }
+
 
     }
 

@@ -26,19 +26,19 @@ object OrderChooseEvent : BaseEvent() {
         selectOrderProperty(dialog)
 
 
-        // 点击确定按钮
-//        val resId =
-//            dialog.context.resources.getIdentifier("confirm", "id", dialog.context.packageName)
-//        val go = dialog.findViewById<View>(resId)
-//        if (go == null) {
-//            // 重新尝试抢购
-//            val activity = dialog.ownerActivity ?: return@launch
-//            Core.startGo(activity.applicationContext, activity.intent.clone() as Intent)
-//            activity.finish()
-//        } else if (go.tag == null) {
-//            go.tag = "已经点击过"
-//            go.performClick()
-//        }
+//         点击确定按钮
+        val resId =
+            dialog.context.resources.getIdentifier("confirm", "id", dialog.context.packageName)
+        val go = dialog.findViewById<View>(resId)
+        if (go == null) {
+            // 重新尝试抢购
+            val activity = dialog.ownerActivity ?: return@launch
+            Core.startGo(activity.applicationContext, activity.intent.clone() as Intent)
+            activity.finish()
+        } else if (go.tag == null) {
+            go.tag = "已经点击过"
+            go.performClick()
+        }
 
     }
 

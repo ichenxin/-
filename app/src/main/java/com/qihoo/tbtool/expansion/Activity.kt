@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.*
+import com.qihoo.tbtool.core.taobao.view.CountDownDialog
 
 import java.math.BigDecimal
 
@@ -36,6 +37,13 @@ fun Activity.showLoadDialog(msg: String): Dialog {
     return ProgressDialog(this).apply {
         setMessage(msg)
         setCancelable(false)
+        show()
+    }
+}
+
+
+fun Activity.showCountDownDialog(time: Long, stop: () -> Unit, start: () -> Unit): Dialog {
+    return CountDownDialog(this, time, stop, start).apply {
         show()
     }
 }

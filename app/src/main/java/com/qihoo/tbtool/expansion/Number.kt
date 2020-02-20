@@ -9,10 +9,6 @@ fun BigDecimal.to2(): BigDecimal {
 }
 
 
-
-
-
-
 fun BigDecimal.trimZero(): String {
     var s = toString()
     if (s.indexOf(".") > 0) {
@@ -24,9 +20,9 @@ fun BigDecimal.trimZero(): String {
     return s
 }
 
-fun Number.toTimeFormat(pattern:String="yyyyMMdd.HHmmss"): String {
+fun Number.toTimeFormat(pattern: String = "yyyyMMdd.HHmmss"): String {
     val v = toLong()
-   return SimpleDateFormat(pattern).run {
+    return SimpleDateFormat(pattern).run {
         format(v)
     }
 }
@@ -38,4 +34,17 @@ fun Number.fillZero(): String {
     } else {
         "0${toShort()}"
     }
+}
+
+/**
+ * 将秒变成
+ * 时:分:秒的格式
+ */
+fun Number.formatTime(): String {
+    val h = toLong() / 3600
+
+    val m = (toLong() % 3600) / 60;
+
+    val s = (toLong() % 3600) % 60;
+    return "${h.fillZero()}:${m.fillZero()}:${s.fillZero()}"
 }

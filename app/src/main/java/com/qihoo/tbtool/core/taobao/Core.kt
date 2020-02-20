@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import com.mm.red.expansion.showCountDownDialog
 import com.mm.red.expansion.showLoadDialog
 import com.mm.red.expansion.showToast
 import com.qihoo.tbtool.api.H5TBRetrofit
@@ -161,26 +162,15 @@ object Core {
         val intent = activity.intent.clone() as Intent
         val itemId = intent.getStringExtra("item_id") ?: ""
 
+        activity.showCountDownDialog(chooseTime.time(), {
+            // 停止
+            l("倒计时停止")
+        }, {
+            l("倒计时开始")
+            // 开始
+            startGo(context, intent)
+        })
 
-        val job = GlobalScope.launch {
-            while (true) {
-                val currentTimeMillis = System.currentTimeMillis()
-                val time = chooseTime.time() - currentTimeMillis
-                l("执行倒计时: $time")
-
-                if (time <= 0) {
-                    startGo(context, intent)
-                    JobManagers.removeJob(itemId)
-                    break
-                }
-
-                mainScope.launch {
-                    Toast.makeText(activity, "剩余:" + time / 1000 + "秒", Toast.LENGTH_SHORT).show()
-                }
-                delay(1000)
-            }
-        }
-        JobManagers.addJob(itemId, job)
     }
 
 }

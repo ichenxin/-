@@ -39,7 +39,7 @@ object TbDetailActivityHook {
             override fun afterHookedMethod(param: MethodHookParam) {
                 super.afterHookedMethod(param)
                 val activity: Activity = param.thisObject as Activity
-                showIntent(activity)
+//                showIntent(activity)
                 // 获取 Activity 的全路径昵称
                 val simpleName = activity.javaClass.name
                 // 判断注入了抢购悬浮窗
@@ -61,12 +61,6 @@ object TbDetailActivityHook {
                         activity.intent.putExtra(IS_INJECT, true)
                         // 注入抢购按钮
                         injectView(activity)
-                    } else if (isInject) {
-                        // 注入过 View 刷新下状态
-                        activity.window.decorView.tag?.let {
-                            val injectView = it as InjectView
-                            injectView.buidView()
-                        }
                     }
                 }
             }

@@ -68,16 +68,7 @@ val icon_ju by lazy {
 class InjectView(val activity: Activity) {
     var timeIcon: ImageView? = null
 
-    fun buidView() {
-        val item_id = activity.intent.getStringExtra("item_id") ?: ""
-        timeIcon?.apply {
-            imageBitmap = if (JobManagers.haveJob(item_id)) {
-                icon_stop
-            } else {
-                icon_time
-            }
-        }
-    }
+
 
     fun getRootView(): View {
         val item_id = activity.intent.getStringExtra("item_id") ?: ""
@@ -101,21 +92,11 @@ class InjectView(val activity: Activity) {
                 }
 
                 timeIcon = imageView {
-                    imageBitmap = if (JobManagers.haveJob(item_id)) {
-                        icon_stop
-                    } else {
-                        icon_time
-                    }
+                    imageBitmap = icon_time
 
                     setOnClickListener {
-                        if (JobManagers.haveJob(item_id)) {
-                            JobManagers.removeJob(item_id)
-                            imageBitmap = icon_time
-                        } else {
-                            timeGo { time, select ->
-                                statTimeGo(time, activity)
-                                imageBitmap = icon_stop
-                            }
+                        timeGo { time, select ->
+                            statTimeGo(time, activity)
                         }
                     }
                 }.lparams(dip(45), dip(45)) {
