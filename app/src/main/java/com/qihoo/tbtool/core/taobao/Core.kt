@@ -9,6 +9,7 @@ import com.mm.red.expansion.showCountDownDialog
 import com.mm.red.expansion.showLoadDialog
 import com.mm.red.expansion.showToast
 import com.qihoo.tbtool.api.H5TBRetrofit
+import com.qihoo.tbtool.bean.Prop
 import com.qihoo.tbtool.bean.SelectProperty
 import com.qihoo.tbtool.core.PlugInInit
 import com.qihoo.tbtool.core.taobao.Core.startGo
@@ -74,7 +75,7 @@ object Core {
         confirm: (items: HashMap<String, String>?) -> Unit
     ) {
         // 获取商品ID
-        val itemId = activity.intent.getStringExtra("item_id") ?: ""
+        var itemId = activity.intent.getStringExtra("item_id") ?: ""
         if (itemId.isBlank()) {
             return
         }
@@ -96,19 +97,8 @@ object Core {
                     )
                     .unique()
                     ?.let {
-                        // 选中条件
-                        for (condition in it.getTbProperty()) {
-                            for (prop in props) {
-                                if (prop.name == condition.key) {
-                                    prop.values.find {
-                                        it.name == condition.value
-                                    }?.apply {
-                                        isSelected = true
-                                    }
-                                    break
-                                }
-                            }
-                        }
+                        // 初始化 选中条件
+                        initSelectd(it, props)
                     }
 
 
@@ -148,6 +138,27 @@ object Core {
         }
 
 
+    }
+
+    /**
+     * 遍历设置上次选中的条件
+     */
+    private fun initSelectd(
+        it: SelectProperty,
+        props: List<Prop>
+    ) {
+        for (condition in it.getTbProperty()) {
+            for (prop in props) {
+                if (prop.name == condition.key) {
+                    prop.values.find {
+                        it.name == condition.value
+                    }?.apply {
+                        isSelected = true
+                    }
+                    break
+                }
+            }
+        }
     }
 
 

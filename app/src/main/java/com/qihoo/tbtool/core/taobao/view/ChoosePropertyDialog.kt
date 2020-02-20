@@ -35,7 +35,7 @@ class ChoosePropertyDialog(
     init {
         setContentView(buildView())
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        setCancelable(false)
+//        setCancelable(false)
 
 
         window!!.getDecorView().setPadding(0, 0, 0, 0)

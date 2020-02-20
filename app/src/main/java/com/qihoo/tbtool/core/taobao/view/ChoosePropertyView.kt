@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.view.ViewGroup
 import com.qihoo.tbtool.bean.Value
 import android.graphics.drawable.StateListDrawable
+import android.widget.ScrollView
 
 
 /**
@@ -27,6 +28,7 @@ class ChoosePropertyView(
 ) : BaseView(context) {
     fun getRootView(): View {
         return context.UI {
+
             verticalLayout {
                 backgroundColor = Color.WHITE
 
@@ -42,11 +44,16 @@ class ChoosePropertyView(
                     gravity = Gravity.CENTER
                 }
 
-                // 增加属性选项
-                for (prop in props) {
-                    val itemView = buildItem(prop)
-                    addView(itemView)
-                }
+                scrollView {
+                    verticalLayout {
+                        // 增加属性选项
+                        for (prop in props) {
+                            val itemView = buildItem(prop)
+                            addView(itemView)
+                        }
+                    }
+                }.lparams(ViewGroup.LayoutParams.MATCH_PARENT, dip(300))
+
 
                 linearLayout {
                     setPadding(0, dip(15), 0, 0)
