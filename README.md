@@ -4,7 +4,7 @@
 ![](http://p0.qhimg.com/t01be2a3ce3171dde59.gif)
 
 ## 升级公告
-### 版本 2.0 更新内容：
+### 版本 2.1 更新内容：
 感谢 [whoamixx1](https://github.com/whoamixx1) 提供的商品属性 `API` 已经解决遗留问题。
 1. 增加抢购预设界面，若抢购预设的属性商品没有，会默认选择最后一个可选项。
 
@@ -14,6 +14,7 @@
 ![](http://p0.qhimg.com/t01fa03a1dce6e66abd.png)  
 
 3. 同步淘宝时间,关于 `Root` 权限获取优化
+4. 修正属性展示不全的问题
 
 ## 故事背景
 I am a programmer, I have a dream!  
