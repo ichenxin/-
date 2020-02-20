@@ -1,6 +1,7 @@
 package com.qihoo.tbtool.api
 
 import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.qihoo.tbtool.bean.CommodityDetail
 import com.qihoo.tbtool.bean.Timetamp
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -53,9 +54,20 @@ interface TBApi {
     suspend fun getTimestamp(@Query("api") api: String = "mtop.common.getTimestamp"): Timetamp
 }
 
+
+interface H5TBApi {
+    //http://h5api.m.taobao.com/gw/mtop.taobao.detail.getdetail/6.0/?data=%7B%22itemNumId%22%3A%22609197376738%22%7D
+    @GET("/gw/mtop.taobao.detail.getdetail/6.0")
+    suspend fun getDetailById(@Query("data") itemId: String): CommodityDetail
+}
+
 /**
  * 淘宝API
  */
 object TBRetrofit : BaseRtrofit("http://api.m.taobao.com") {
     val api = retrofit.create(TBApi::class.java)
+}
+
+object H5TBRetrofit : BaseRtrofit("http://h5api.m.taobao.com") {
+    val api = retrofit.create(H5TBApi::class.java)
 }

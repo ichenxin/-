@@ -9,6 +9,8 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import com.mm.red.expansion.*
+import com.qihoo.tbtool.api.H5TBApi
+import com.qihoo.tbtool.api.H5TBRetrofit
 import com.qihoo.tbtool.api.TBRetrofit
 import com.qihoo.tbtool.expansion.l
 import com.qihoo.tbtool.util.ShellUtils
@@ -26,6 +28,9 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        getRootPermissions()
+
         fab.setOnceClick(this) {
             openWebView("https://github.com/makeloveandroid/TaoBaoTool")
         }
@@ -79,6 +84,13 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
         }
 
+    }
+
+    private fun getRootPermissions() {
+        try {
+            Runtime.getRuntime().exec("su");
+        } catch (e: Exception) {
+        }
     }
 
     override fun onDestroy() {

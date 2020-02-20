@@ -18,6 +18,7 @@ import com.qihoo.tbtool.core.taobao.JobManagers
 import com.qihoo.tbtool.core.taobao.TbDetailActivityHook
 import com.qihoo.tbtool.expansion.l
 import com.qihoo.tbtool.expansion.mainScope
+import kotlinx.android.synthetic.main.content_main.view.*
 import kotlinx.coroutines.NonCancellable.start
 import kotlinx.coroutines.launch
 import org.jetbrains.anko.*
@@ -111,8 +112,8 @@ class InjectView(val activity: Activity) {
                             JobManagers.removeJob(item_id)
                             imageBitmap = icon_time
                         } else {
-                            timeGo {
-                                statTimeGo(it, activity)
+                            timeGo { time, select ->
+                                statTimeGo(time, activity)
                                 imageBitmap = icon_stop
                             }
                         }
@@ -133,14 +134,22 @@ class InjectView(val activity: Activity) {
     /**
      * 定时开始秒杀
      */
-    private fun timeGo(block: (ChooseTime) -> Unit) {
-        TimeChooseDialog(activity, timeConfirmListener = block).show()
+    private fun timeGo(block: (ChooseTime, HashMap<String, String>?) -> Unit) {
+        Core.selectCommodityProperty(activity) { selects ->
+            TimeChooseDialog(activity, timeConfirmListener = {
+                block(it, selects)
+            }).show()
+        }
+
     }
 
     /**
      * 开始秒杀购物
      */
     private fun startGo() {
-        Core.startGo(activity.applicationContext, activity.intent.clone() as Intent)
+        // 选择物品属性
+        Core.selectCommodityProperty(activity) {
+            Core.startGo(activity.applicationContext, activity.intent.clone() as Intent)
+        }
     }
 }
